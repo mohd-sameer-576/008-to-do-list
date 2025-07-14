@@ -54,3 +54,38 @@ form button:hover {
     background-color: #3f3e3e;
     scale: 0.9;
 }
+.container .todoitems{
+    width: 90%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.container .todoitems .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #c5bdbd;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+.container .todoitems .item p {
+    margin: 0;
+    color: #000;
+}
+.container .todoitems .item button {
+    background-color: #373030;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all linear 0.2s;
+}
+.container .todoitems .item button:hover {
+    background-color: #5a5858;
+}
+.container .todoitems .item button:active {
+    background-color: #3f3e3e;
+    scale: 0.9;
+}
