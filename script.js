@@ -3,7 +3,6 @@ let todoitems = document.querySelector(".todoitems");
 let todoinput = document.querySelector("#todoinput");
 let addbtn = document.querySelector(".addbtn");
 
-// Helper functions for localStorage
 function saveListToStorage(list) {
     localStorage.setItem('todoList', JSON.stringify(list));
 }
@@ -27,7 +26,7 @@ function renderlist(arr){
         todoitems.appendChild(div);
     });
 
-    // Add delete functionality
+    // delete functionality
     const deleteButtons = document.querySelectorAll(".delete-btn");
     deleteButtons.forEach(button => {
         button.addEventListener("click", function() {
@@ -38,7 +37,7 @@ function renderlist(arr){
         });
     });
 
-    // Add edit functionality
+    // edit functionality
     const editButtons = document.querySelectorAll(".edit-btn");
     editButtons.forEach(button => {
         button.addEventListener("click", function() {
