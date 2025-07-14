@@ -3,8 +3,16 @@ let todoitems = document.querySelector(".todoitems");
 let todoinput = document.querySelector("#todoinput");
 let addbtn = document.querySelector(".addbtn");
 
-let list = [
-];
+// Helper functions for localStorage
+function saveListToStorage(list) {
+    localStorage.setItem('todoList', JSON.stringify(list));
+}
+function loadListFromStorage() {
+    const data = localStorage.getItem('todoList');
+    return data ? JSON.parse(data) : [];
+}
+
+let list = loadListFromStorage();
 
 function renderlist(arr){
     todoitems.innerHTML = ""; // Clear existing items
@@ -13,18 +21,37 @@ function renderlist(arr){
         div.classList.add("item");
         div.innerHTML = `
             <p>${item.text}</p>
-            <button data-id="${item.id}">❌</button>
+            <button class="edit-btn" data-id="${item.id}">✏️</button>
+            <button class="delete-btn" data-id="${item.id}">❌</button>
         `;
         todoitems.appendChild(div);
     });
 
     // Add delete functionality
-    const deleteButtons = document.querySelectorAll(".item button");
+    const deleteButtons = document.querySelectorAll(".delete-btn");
     deleteButtons.forEach(button => {
         button.addEventListener("click", function() {
             const idToDelete = parseInt(button.getAttribute("data-id"));
             list = list.filter(item => item.id !== idToDelete);
+            saveListToStorage(list);
             renderlist(list);
+        });
+    });
+
+    // Add edit functionality
+    const editButtons = document.querySelectorAll(".edit-btn");
+    editButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            const idToEdit = parseInt(button.getAttribute("data-id"));
+            const item = list.find(item => item.id === idToEdit);
+            if (item) {
+                const newText = prompt("Edit your task:", item.text);
+                if (newText !== null && newText.trim() !== "") {
+                    item.text = newText.trim();
+                    saveListToStorage(list);
+                    renderlist(list);
+                }
+            }
         });
     });
 }
@@ -41,6 +68,7 @@ function addtodo() {
     };
     list.push(obj);
     todoinput.value = "";  // clear input
+    saveListToStorage(list);
     renderlist(list);
 }
 
